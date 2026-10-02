@@ -24,7 +24,7 @@ def remover_comentarios_sql(consulta):
     return "\n".join(linhas).strip()
 
 
-def imprimir_titulo(titulo):
+def print_title(titulo):
     print(" ")
     print(f"{titulo}")
     print(" ")

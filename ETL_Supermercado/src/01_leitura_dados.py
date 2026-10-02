@@ -1,56 +1,48 @@
 import pandas as pd
-from config import engine_etl_vendas_supermercado
-from normalizacao import imprimir_titulo
-
+from config import engine_etl
+from normalizacao import print_title
 
 # Leitura da tabela Raw para o DataFrame
 df = pd.read_sql(
     "SELECT * FROM vendas.raw_vendas",
-    engine_etl_vendas_supermercado
+    engine_etl
 )
 
-
 # Informações gerais do DataFrame
-imprimir_titulo("Informações das colunas:")
+print_title("Informações das colunas:")
 print(df.info())
 
-
 # Exibição das primeiras linhas do DataFrame
-imprimir_titulo("Primeiras linhas:")
+print_title("Primeiras linhas:")
 print(df.head(10))
 
-
 # Exibição das últimas linhas do DataFrame
-imprimir_titulo("Últimas linhas:")
+print_title("Últimas linhas:")
 print(df.tail(10))
 
-
 # Verificação de valores nulos
-imprimir_titulo("Valores nulos:")    
+print_title("Valores nulos:")    
 print(df.isnull().sum())
 
-
 # Verificação de estatísticas
-imprimir_titulo("Estatísticas:")
+print_title("Estatísticas:")
 print(df.describe(include="all"))
 
-
 # Tipos de data e hora
-imprimir_titulo("Data e Hora:")
+print_title("Data e Hora:")
 print(df[["Date", "Time"]].head(10))
 
-
 # Quantidade de registros do DataFrame
-imprimir_titulo("Quantidade de registros:")
+print_title("Quantidade de registros:")
 print(len(df))
 
 # Exportação para CSV
-imprimir_titulo("Exportando para CSV...")
+print_title("Exportando para CSV...")
 df.to_csv(
-    "data/raw/raw_vendas_exportada.csv",
+    "data/raw/raw_vendas.csv",
     index=False,
     encoding="utf-8"
 )
 
 print("Dados exportados com sucesso!")
-print(f"{len(df)} registros exportados para raw_vendas_exportada.csv")
+print(f"{len(df)} registros exportados para raw_vendas.csv")

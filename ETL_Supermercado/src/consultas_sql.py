@@ -1,12 +1,12 @@
-from pathlib import Path
 import pandas as pd
-from config import engine_etl_vendas_supermercado
+
+from pathlib import Path
+from config import engine_etl
 from normalizacao import (
     extrair_titulo_sql,
     remover_comentarios_sql,
-    imprimir_titulo
+    print_title
 )
-
 
 # Caminho do arquivo SQL
 caminho_sql = (
@@ -15,11 +15,9 @@ caminho_sql = (
     / "03_consultas.sql"
 )
 
-
 # Leitura do arquivo SQL
 with open(caminho_sql, "r", encoding="utf-8") as arquivo:
     conteudo_sql = arquivo.read()
-
 
 # Separa as consultas pelo ponto e vírgula
 consultas = [
@@ -27,7 +25,6 @@ consultas = [
     for consulta in conteudo_sql.split(";")
     if consulta.strip()
 ]
-
 
 # Executa cada consulta
 for consulta in consultas:
@@ -39,12 +36,12 @@ for consulta in consultas:
     consulta_sql = remover_comentarios_sql(consulta)
 
     # Exibe o título
-    imprimir_titulo(titulo)
+    print_title(titulo)
 
     # Executa a consulta
     resultado = pd.read_sql(
         consulta_sql,
-        engine_etl_vendas_supermercado
+        engine_etl
     )
 
     # Exibe o resultado

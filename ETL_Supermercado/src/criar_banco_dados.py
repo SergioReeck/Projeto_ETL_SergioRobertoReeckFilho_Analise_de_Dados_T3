@@ -1,20 +1,25 @@
-from sqlalchemy import create_engine, text
-from sqlalchemy.engine import URL
+import os
 
-url = URL.create(
-    "postgresql+psycopg2",
-    username="postgres",
-    password="postgres",
-    host="localhost",
-    port=5432,
-    database="postgres",
-)
+from sqlalchemy import text
+from config import engine_cdb
 
-engine = create_engine(url, isolation_level="AUTOCOMMIT")
+print("Iniciando criação do banco de dados...")
 
-with engine.connect() as conn:
-    conn.execute(
-        text("CREATE DATABASE etl_vendas_supermercado;")
-    )
+# sql_banco_de_dados = """
+# CREATE DATABASE {db_name};
+# """.format(db_name=os.getenv('DB_NAME'))
 
-print("Banco criado com sucesso!")
+sql_banco_de_dados = """
+CREATE DATABASE etl_supermercado;
+"""
+
+try:
+    with engine_cdb.connect() as conn:
+
+        conn.execute(text(sql_banco_de_dados))
+
+    print(f"Banco de dados '{os.getenv('DB_NAME')}' criado com sucesso!")
+
+except Exception as erro:
+    print("Erro ao criar banco de dados:")
+    print(erro)

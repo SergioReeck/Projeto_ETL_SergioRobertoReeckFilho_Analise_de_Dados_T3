@@ -1,10 +1,8 @@
 
--- Criar Schema
-
+-- Script para criar o schema vendas
 CREATE SCHEMA IF NOT EXISTS vendas;
 
--- Criar Tabela Raw
-
+-- Script para criar a tabela raw_vendas
 CREATE TABLE vendas.raw_vendas (
     "Invoice ID" VARCHAR(50),
     "Branch" VARCHAR(10),
@@ -25,8 +23,7 @@ CREATE TABLE vendas.raw_vendas (
     "Rating" NUMERIC(4,2)
 );
 
--- Criar Tabela Tratada
-
+-- Script para criar a tabela vendas_tratadas
 CREATE TABLE vendas.vendas_tratadas (
     id_venda VARCHAR(50) PRIMARY KEY NOT NULL,
     filial VARCHAR(10) NOT NULL,
@@ -53,3 +50,4 @@ CREATE TABLE vendas.vendas_tratadas (
     avaliacao NUMERIC(4,2)
         CHECK (avaliacao >= 0 AND avaliacao <= 10)
 );
+-- Obs.: O schema e as tabelas também podem ser criados via criar_tabelas.py

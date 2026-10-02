@@ -1,5 +1,7 @@
 from sqlalchemy import text
-from config import engine_etl_vendas_supermercado
+from config import engine_etl
+
+print("Iniciando criação/verificação do(s) schema(s) e tabela(s)...")
 
 sql_criar_schema = """
 CREATE SCHEMA IF NOT EXISTS vendas;
@@ -35,7 +37,7 @@ CREATE TABLE vendas.vendas_tratadas (
 """
 
 try:
-    with engine_etl_vendas_supermercado.begin() as conn:
+    with engine_etl.begin() as conn:
 
         conn.execute(text(sql_criar_schema))
         conn.execute(text(sql_criar_tabela_raw))
